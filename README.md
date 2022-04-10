@@ -5,4 +5,4 @@ sahip bu web sitesi görseller ve ilgili bilgiler içeren çeşitli erişilebili
 nitelikli bir tasarım hedeflenmektedir. 
 
 
-<img src="/HoroscopeWebProject/docs/ErDiagram.png" alt="Alt text" title="Optional title">
+<img src="docs/ErDiagram.png" alt="Alt text" title="Optional title">

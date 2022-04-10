@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <h:commandButton action="/index.xhtml" value="Home"/>  
+
+        </h:form><br/>
+
+        <hr/>
+        <h:form>
+            Title <h:inputText value="#{postBean.entity.title}" /><br/>
+            Context <h:inputTextarea cols="30" rows="5" value="#{postBean.entity.context}" /><br/>
+
+
+            <h:selectOneMenu value="#{postBean.entity.writer}" converter="writerConverter">
+
+                <f:selectItems value="#{writerBean.list}" var="c" itemValue="#{c}" itemLabel="#{c.name}"/>
+
+
+            </h:selectOneMenu>
+
+
+            <h:commandButton rendered="#{postBean.entity.id ==0}"  action="#{postBean.create}" value="Create"/>
+            <h:commandButton rendered="#{postBean.entity.id !=0}"  action="#{postBean.update}" value="Update"/>
+
+
+
+        </h:form>
+        <hr  />
+
+
+
+
+        <h:form>
+            <h:dataTable value="#{postBean.list}" var="entity"> 
+                <h:column>
+                    <f:facet name="header" >ID</f:facet>
+                        #{entity.id}
+
+                </h:column>
+                <h:column>
+                    <f:facet name="header">TITLE</f:facet>
+                        #{entity.title}
+
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >CONTEXT</f:facet>
+                        #{entity.context}
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >Writer </f:facet>
+                        #{entity.writer.name}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header" >ADMINISTRATION</f:facet>
+                    <h:commandButton  action="#{postBean.delete(entity)}" value="delete" /> 
+                    <h:commandButton action="#{postBean.setEntity(entity)}" value="Update"/>
+                </h:column>
+
+
+            </h:dataTable>
+
+        </h:form>
+
+    </h:body>
+</html>

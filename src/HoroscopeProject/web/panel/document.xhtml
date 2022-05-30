@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+         <h:form>
+
+            <h:commandButton action="/index.xhtml" value="Home"/>  
+
+        </h:form><br/>
+        <hr/>
+        <h:form enctype="multipart/form-data">
+            <label> File</label>
+            Document : <h:inputFile value="#{documentController.doc}"/><br/>
+            Name : <h:inputText value="#{documentController.documentName}" />
+            <h:commandButton value="Upload" action="#{documentController.upload}"/>
+
+        </h:form>
+
+        <h:form>
+            <div>
+                <h:commandButton action="#{documentController.previous()}" value="Previous" />
+                <h:commandButton action="#{documentController.next()}" value="Next" />
+
+            </div>
+            Page #{documentController.page} of #{documentController.pageCount}
+            <h:dataTable value="#{documentController.documentList}" var="d" >
+                <h:column>
+
+                    <f:facet name="header"> ID</f:facet>
+                        #{d.id}
+                </h:column>
+                <h:column>
+
+                    <f:facet name="header"> Path</f:facet>
+                        #{d.filePath}
+                </h:column>
+                <h:column>
+
+                    <f:facet name="header"> Name</f:facet>
+                        #{d.fileName}
+                </h:column>
+                <h:column>
+
+                    <f:facet name="header"> Type</f:facet>
+                        #{d.fileType}
+                </h:column>
+                <h:column>
+
+                    <h:graphicImage width="100" height="100" value="/file/#{d.fileName}"/>
+
+                </h:column>
+
+
+            </h:dataTable>
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

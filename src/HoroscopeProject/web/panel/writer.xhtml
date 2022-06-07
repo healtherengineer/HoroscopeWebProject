@@ -13,7 +13,7 @@
 
         </h:form><br/>
         <hr/>
-        <h:form>
+        <h:form id="writer-form">
             AD: <h:inputText value="#{writerBean.entity.name}" /><br/>
             SOYAD: <h:inputText value="#{writerBean.entity.surname}" /><br/>
             E-POSTA: <h:inputText value="#{writerBean.entity.email}" /><br/>
@@ -21,12 +21,18 @@
             ŞİFRE OLUŞTUR: <h:inputText value="#{writerBean.entity.password}" /><br/>
 
 
-            <h:commandButton rendered="#{writerBean.entity.id ==0}"  action="#{writerBean.create}" value="Create"/>
-            <h:commandButton rendered="#{writerBean.entity.id !=0}"  action="#{writerBean.update}" value="Update"/>
+            <h:commandButton rendered="#{writerBean.entity.id ==0}"  action="#{writerBean.create}" value="Create">
+                    <f:ajax execute="writer-form" render="writer-form writer-table" />
+
+                        </h:commandButton>
+            <h:commandButton rendered="#{writerBean.entity.id !=0}"  action="#{writerBean.update}" value="Update">
+                   <f:ajax execute="writer-form" render="writer-form writer-table" />
+
+                        </h:commandButton>
 
         </h:form>
         <hr  />
-        <h:form>
+        <h:form id="writer-table">
             <h:dataTable value="#{writerBean.list}" var="entity"> 
                 <h:column>
                     <f:facet name="header" >ID</f:facet>
@@ -53,7 +59,12 @@
                 <h:column>
                     <f:facet name="header" >ADMINISTRATION</f:facet>
                     <h:commandButton  action="#{writerBean.delete(entity)}" value="delete" /> 
-                    <h:commandButton action="#{writerBean.setEntity(entity)}" value="Update"/>
+                    <h:commandButton action="#{writerBean.setEntity(entity)}" value="Update">
+                          <f:ajax execute="@this" render="writer-form" />
+
+
+
+                            </h:commandButton>
                 </h:column>
 
 

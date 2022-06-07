@@ -12,15 +12,21 @@
             <h:commandButton action="/index.xhtml" value="Home"/>  
 
         </h:form>
-        <h:form>
+        <h:form id="horoscope-form">
 
             Name : <h:inputText value="#{horoscopeBean.entity.name}"/><br/>
 
-            <h:commandButton rendered="#{horoscopeBean.entity.id ==0}"  action="#{horoscopeBean.create}" value="Create"/>
-            <h:commandButton rendered="#{horoscopeBean.entity.id !=0}"  action="#{horoscopeBean.update}" value="Update"/>
+            <h:commandButton rendered="#{horoscopeBean.entity.id ==0}"  action="#{horoscopeBean.create}" value="Create">
+                 <f:ajax execute="horoscope-form" render="horoscope-form horoscope-table" />
+
+                        </h:commandButton>
+            <h:commandButton rendered="#{horoscopeBean.entity.id !=0}"  action="#{horoscopeBean.update}" value="Update">
+                  <f:ajax execute="horoscope-form" render="horoscope-form horoscope-table" />
+
+                        </h:commandButton>
 
         </h:form>
-        <h:form>
+        <h:form id="horoscope-table">
 
 
 
@@ -37,7 +43,13 @@
                 <h:column>
                     <f:facet name="header">  Adminstration</f:facet>
                     <h:commandButton action="#{horoscopeBean.delete(entity)}" value="Delete" /> 
-                    <h:commandButton action="#{horoscopeBean.setEntity(entity)}" value="Update" /> 
+                    
+                    <h:commandButton action="#{horoscopeBean.setEntity(entity)}" value="Update" >
+                             <f:ajax execute="@this" render="horoscope-form" />
+
+
+
+                            </h:commandButton>
                 </h:column>
 
             </h:dataTable>

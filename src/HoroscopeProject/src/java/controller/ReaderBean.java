@@ -18,7 +18,8 @@ import java.util.List;
 @Named(value = "readerBean")
 @SessionScoped
 public class ReaderBean implements Serializable {
-
+// favwriter dao nesnesiyle crud yapılacak
+// gelen writer id yi ise favwriter nesnesinin writer ı ile tutacağım
     private Reader entity;
     private ReaderDAO dao;
     private List<Reader> list;

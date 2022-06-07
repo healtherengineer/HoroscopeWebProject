@@ -39,7 +39,7 @@ public class DocumentController implements Serializable {
         try {
 
             InputStream input = doc.getInputStream();
-            File f = new File(this.getUploadTo() + documentName + ".jpg");
+            File f = new File(this.getUploadTo() + this.getDocumentName() + ".jpg");
             Files.copy(input, f.toPath());
 
             document = this.getDocument();

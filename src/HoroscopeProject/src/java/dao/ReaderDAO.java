@@ -111,11 +111,29 @@ public class ReaderDAO extends DBConnection {
                 Horoscope horos = this.getHoroscopeDAO().findById(rs.getInt("horoscope_id"));
                 horo = new Reader(rs.getInt("id"), rs.getString("name"),
                         rs.getString("surname"), rs.getString("email"), rs.getString("password"), rs.getString("gender"), horos);
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(HoroscopeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return horo;
+    }
+    
+    public boolean isAvailable(String name , String password){
+        
+        try {
+            Statement st = this.getConnection().createStatement();
+            String query = "Select * from readers where name = '"+name +"' and password = '"+password+"'";            
+            ResultSet rs = st.executeQuery(query);
+            if(rs.next()){
+                return true ;
+            }
+            else{
+                return false;
+            }
+        } catch (Exception e) {
+        }
+        return false ;
+        
+        
     }
 }

@@ -36,22 +36,30 @@ public class LoginFilter implements Filter {
 
         Reader reader = null;
 
+        //bir session varsa gir ve login controller da oluşturulan validReader anahtarının içindeki reader ı 
+        //reader nesnesine define et .
         if (session != null) {
 
             reader = (Reader) session.getAttribute("validReader");
 
         }
+        //validReader ın değeri reader == null sa başarılı bir login olamamıştır 
+        // index ve logout isteklerinde bulunduğunda login.xhtml e yönlendirecez 
         if (reader == null) {
             if (url.contains("index") || url.contains("logout")) {
                 server.sendRedirect(client.getContextPath() + "/login.xhtml");
 
             } else {
 
+                //başka birşey isterse istediği yere yönlendirecez
                 fc.doFilter(sr, sr1);
 
             }
 
         } else {
+            //reader null değilse başarılı bir login olduysa 
+            //istediği her yere yönlendirecez
+            //logout olunca session ı invalidate edeceğiz ve login.xhtml e yollayacağız .
 
             if (url.contains("logout")) {
                 session.invalidate();

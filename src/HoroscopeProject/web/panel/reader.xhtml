@@ -14,7 +14,7 @@
 
         </h:form><br/>
         <hr/>
-        <h:form>
+        <h:form id="reader-form">
             AD: <h:inputText value="#{readerBean.entity.name}" /><br/>
             SOYAD: <h:inputText value="#{readerBean.entity.surname}" /><br/>
             E-POSTA: <h:inputText value="#{readerBean.entity.email}" /><br/>
@@ -28,12 +28,18 @@
 
             </h:selectOneMenu>
 
-            <h:commandButton rendered="#{readerBean.entity.id ==0}"  action="#{readerBean.create}" value="Create"/>
-            <h:commandButton rendered="#{readerBean.entity.id !=0}"  action="#{readerBean.update}" value="Update"/>
+            <h:commandButton rendered="#{readerBean.entity.id ==0}"  action="#{readerBean.create}" value="Create">
+                <f:ajax execute="reader-form" render="reader-form reader-table" />
+
+            </h:commandButton>
+            <h:commandButton rendered="#{readerBean.entity.id !=0}"  action="#{readerBean.update}" value="Update">
+                <f:ajax execute="reader-form" render="reader-form reader-table" />
+
+            </h:commandButton>
 
         </h:form>
         <hr  />
-        <h:form>
+        <h:form id="reader-table">
             <h:dataTable value="#{readerBean.list}" var="entity"> 
                 <h:column>
                     <f:facet name="header" >ID</f:facet>
@@ -60,7 +66,12 @@
                 <h:column>
                     <f:facet name="header" >ADMINISTRATION</f:facet>
                     <h:commandButton  action="#{readerBean.delete(entity)}" value="delete" /> 
-                    <h:commandButton action="#{readerBean.setEntity(entity)}" value="Update"/>
+                    <h:commandButton action="#{readerBean.setEntity(entity)}" value="Update">
+                        <f:ajax execute="@this" render="reader-form" />
+
+
+
+                    </h:commandButton>
                 </h:column>
 
 
